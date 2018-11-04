@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable name="file" type="java.io.File"/>
+        <variable name="callback" type="cz.lebedev.filesviewer.callback.FileClickCallback"/>
+        <variable name="isselected" type="boolean"/>
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:onClick="@{() ->  callback.onClick(file)}"
+            android:onLongClick="@{(view) ->  callback.onLongClick(view,file)}"
+            android:layout_marginStart="@dimen/item_margin"
+            android:layout_marginEnd="@dimen/item_margin"
+            app:cardUseCompatPadding="true"
+            app:selected="@{isselected}"
+
+   >
+    <LinearLayout
+            android:layout_marginStart="@dimen/item_margin"
+            android:layout_marginEnd="@dimen/item_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal"
+    >
+
+        <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:fileOrFolder="@{file}"
+                android:layout_marginRight="@dimen/item_margin"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@{file.name}"
+                android:textSize="@dimen/text_size"
+                android:layout_gravity="center"
+        />
+    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
