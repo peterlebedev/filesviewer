@@ -7,4 +7,8 @@
     <string name="title_list_preference">Default Folder:</string>
     <string name="cannot_open">File cannot be opened</string>
     <string name="cannot_be_del">Cannot be deleted</string>
+    <string name="del_conf">Delete confirmation</string>
+    <string name="are_you_sure_delete">Are you sure to delete selected files?</string>
+    <string name="yes">YES</string>
+    <string name="no">No</string>
 </resources>

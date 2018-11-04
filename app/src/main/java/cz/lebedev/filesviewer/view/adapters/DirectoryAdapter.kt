@@ -1,6 +1,8 @@
 package cz.lebedev.filesviewer.view.adapters
 
+import android.content.Context
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.databinding.DataBindingUtil
@@ -15,7 +17,7 @@ import java.io.File
 import java.util.ArrayList
 
 
-class DirectoryAdapter(val fileOperationCallBack: FileOperationCallBack) :
+class DirectoryAdapter(val fileOperationCallBack: FileOperationCallBack, val context: Context?) :
     RecyclerView.Adapter<DirectoryAdapter.FileViewHolder>() {
 
     public var multiSelect = false
@@ -24,11 +26,21 @@ class DirectoryAdapter(val fileOperationCallBack: FileOperationCallBack) :
     val actionModeCallbacks = object : androidx.appcompat.view.ActionMode.Callback {
 
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-            for (file in selectedItems) {
-                  if(fileOperationCallBack.delete(file))
-                    data?.remove(file)
+
+            val builder = AlertDialog.Builder(context!!)
+            builder.setTitle(context.getString(R.string.del_conf))
+            builder.setMessage(context.getString(R.string.are_you_sure_delete))
+            builder.setNegativeButton(context.getString(R.string.no)){ dialog, _ ->
+                dialog.cancel()
             }
-            mode?.finish()
+            builder.setPositiveButton(context.getString(R.string.yes)){ _, _ ->
+                for (file in selectedItems) {
+                    if(fileOperationCallBack.delete(file))
+                        data?.remove(file)
+                }
+                mode?.finish()
+            }
+            builder.show()
             return true
         }
 
@@ -90,6 +102,7 @@ class DirectoryAdapter(val fileOperationCallBack: FileOperationCallBack) :
 
                 override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
                     return data!!.get(oldItemPosition).name == items!!.get(newItemPosition).name
+                    //pele
                 }
 
             })
