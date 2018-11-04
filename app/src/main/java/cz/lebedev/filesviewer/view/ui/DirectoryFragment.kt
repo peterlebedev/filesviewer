@@ -42,7 +42,7 @@ class DirectoryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding  = DataBindingUtil.inflate<DirectoryFragmentBinding>(LayoutInflater.from(container!!.context), R.layout.directory_fragment, container, false)
 
-        directoryAdapter = DirectoryAdapter(fileOperationCallBack)
+        directoryAdapter = DirectoryAdapter(fileOperationCallBack,context)
         binding.myrecycler.adapter = directoryAdapter
         binding.isLoading = true
         return binding.root
